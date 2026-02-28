@@ -9,9 +9,11 @@ router = APIRouter(prefix="/giftcards", tags=["giftcards"])
 
 @router.post("/", response_model=GiftCardPublic)
 def create_giftcard(giftcard: GiftCardCreate, session: SessionDep, current_user: CurrentUser):
-    db_giftcard = GiftCard.model_validate(giftcard)
-    db_giftcard.user_id = current_user
-    db_giftcard.balance = giftcard.original_balance
+    db_giftcard = GiftCard(
+        **giftcard.model_dump(),
+        user_id=current_user,
+        balance=giftcard.original_balance,
+    )
     session.add(db_giftcard)
     session.commit()
     session.refresh(db_giftcard)
@@ -26,6 +28,22 @@ def get_summary(session: SessionDep, current_user: CurrentUser):
         "expiring_soon": sum(1 for c in cards if c.expiration_date and
                             c.expiration_date <= datetime.utcnow() + timedelta(days=7))
     }
+
+@router.get("/stats")
+def get_stats(session: SessionDep, current_user: CurrentUser):
+    """Alias for /summary - matches test_api.sh."""
+    return get_summary(session, current_user)
+
+@router.get("/expiring", response_model=list[GiftCardPublic])
+def get_expiring(session: SessionDep, current_user: CurrentUser, days: int = 7):
+    """Get expiring cards - matches test_api.sh path."""
+    cutoff = datetime.now(timezone.utc) + timedelta(days=days)
+    cards = session.exec(
+        select(GiftCard)
+        .where(GiftCard.user_id == current_user)
+        .where(GiftCard.expiration_date <= cutoff)
+    ).all()
+    return cards
 
 @router.get("/expiring/soon", response_model=list[GiftCardPublic])
 def get_expiring_cards(session: SessionDep, current_user: CurrentUser, days: int = 7):
