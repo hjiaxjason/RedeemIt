@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CardVault – Upload Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :root {
+    --bg: #f7f4ef;
+    --ink: #1a1814;
+    --muted: #9e9b94;
+    --accent: #e8470a;
+    --surface: #efecea;
+    --border: #dedad3;
+    --green: #2d9e5f;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Karla', sans-serif;
+    overflow: hidden;
+  }
+
+  /* ── SCREEN SYSTEM ── */
+  /* All screens stack on top of each other; only .active is visible */
+  .screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: env(safe-area-inset-top, 1rem) 1.5rem env(safe-area-inset-bottom, 1.5rem);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    transform: translateY(16px);
+    overflow-y: auto;
+  }
+
+  .screen.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  /* ── SHARED HEADER ── */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 0 1rem;
+    flex-shrink: 0;
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  .session-pill {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 0.3rem 0.7rem;
+  }
+
+  /* ── SCREEN 1: CHOOSE METHOD ── */
+  #screenChoose { background: var(--bg); }
+
+  .choose-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .choose-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.2rem;
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+  }
+
+  .choose-title em {
+    display: block;
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .choose-sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 280px;
+  }
+
+  .choose-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .btn-choice {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 1.1rem 1.25rem;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.12s;
+    text-align: left;
+    width: 100%;
+    font-family: 'Karla', sans-serif;
+  }
+
+  .btn-choice:active { transform: scale(0.97); border-color: var(--accent); }
+
+  .btn-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .btn-choice-text strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .btn-choice-text span {
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  /* ── SCREEN 2: PREVIEW + CONFIRM ── */
+  #screenPreview { background: var(--bg); }
+
+  .preview-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .preview-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .preview-img-wrap {
+    flex: 1;
+    background: #1a1814;
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 220px;
+    max-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .preview-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .preview-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .btn-retake {
+    flex: 1;
+    padding: 0.9rem;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.12s;
+  }
+
+  .btn-retake:active { transform: scale(0.97); }
+
+  .btn-use {
+    flex: 2;
+    padding: 0.9rem;
+    background: var(--accent);
+    border: none;
+    border-radius: 12px;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.12s;
+  }
+
+  .btn-use:active { transform: scale(0.97); opacity: 0.9; }
+
+  /* ── SCREEN 3: UPLOADING ── */
+  #screenUploading {
+    background: var(--bg);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .upload-icon {
+    font-size: 3.5rem;
+    animation: bob 1.5s ease-in-out infinite;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+  }
+
+  .upload-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 0.03em;
+  }
+
+  .upload-sub { font-size: 0.8rem; color: var(--muted); }
+
+  .progress-bar {
+    width: 200px;
+    height: 5px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+
+  /* ── SCREEN 4: SUCCESS ── */
+  #screenSuccess {
+    background: var(--bg);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .success-glyph {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0); }
+    to   { transform: scale(1); }
+  }
+
+  .success-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .success-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.7; max-width: 260px; }
+
+  .close-pill {
+    margin-top: 0.5rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 0.5rem 1.2rem;
+  }
+
+  /* ── SCREEN 5: ERROR ── */
+  #screenError {
+    background: var(--bg);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .error-glyph {
+    font-size: 3rem;
+  }
+
+  .error-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .error-msg { font-size: 0.8rem; color: var(--muted); line-height: 1.6; max-width: 260px; }
+
+  .btn-retry {
+    margin-top: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    border: none;
+    border-radius: 12px;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+  }
+
+  /* Hidden inputs */
+  input[type="file"] { display: none; }
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1: Choose how to add photo -->
+<div class="screen active" id="screenChoose">
+  <div class="nav">
+    <div class="logo">CardVault</div>
+    <div class="session-pill" id="sessionPill"></div>
+  </div>
+  <div class="choose-body">
+    <div>
+      <div class="choose-title">Add your<br><em>gift card</em></div>
+      <p class="choose-sub" style="margin-top:0.75rem">Take a fresh photo or pick an existing one from your camera roll.</p>
+    </div>
+    <div class="choose-buttons">
+      <button class="btn-choice" onclick="openCamera()">
+        <div class="btn-icon">📷</div>
+        <div class="btn-choice-text">
+          <strong>Take a Photo</strong>
+          <span>Opens your camera directly</span>
+        </div>
+      </button>
+      <button class="btn-choice" onclick="openRoll()">
+        <div class="btn-icon">🖼️</div>
+        <div class="btn-choice-text">
+          <strong>Choose from Camera Roll</strong>
+          <span>Pick an existing photo</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 2: Preview + confirm -->
+<div class="screen" id="screenPreview">
+  <div class="nav">
+    <div class="logo">CardVault</div>
+    <div class="session-pill" id="sessionPill2"></div>
+  </div>
+  <div class="preview-body">
+    <div class="preview-label">Review your photo</div>
+    <div class="preview-img-wrap">
+      <img id="previewImg" src="" alt="Card preview">
+    </div>
+    <div class="preview-actions">
+      <button class="btn-retake" onclick="goBack()">Retake</button>
+      <button class="btn-use" onclick="uploadPhoto()">Use this photo →</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 3: Uploading -->
+<div class="screen" id="screenUploading">
+  <div class="upload-icon">⬆️</div>
+  <div class="upload-title">Uploading…</div>
+  <div class="upload-sub">Saving your gift card photo</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<!-- SCREEN 4: Success -->
+<div class="screen" id="screenSuccess">
+  <div class="success-glyph">✓</div>
+  <div class="success-title">Card Saved!</div>
+  <p class="success-sub">Your gift card photo has been saved to your wallet. You can close this tab.</p>
+  <div class="close-pill">You're all set</div>
+</div>
+
+<!-- SCREEN 5: Error -->
+<div class="screen" id="screenError">
+  <div class="error-glyph">⚠️</div>
+  <div class="error-title">Upload Failed</div>
+  <p class="error-msg" id="errorMsg">Something went wrong. Check your connection and try again.</p>
+  <button class="btn-retry" onclick="showScreen('screenChoose')">Try Again</button>
+</div>
+
+<!-- File inputs: camera vs roll -->
+<input type="file" id="inputCamera" accept="image/*" capture="environment" onchange="handleFile(this)">
+<input type="file" id="inputRoll"   accept="image/*"                        onchange="handleFile(this)">
+
+<script>
+  // ── Session from URL ──────────────────────────────────────────────
+  const params    = new URLSearchParams(window.location.search);
+  const SESSION   = params.get('session') || 'DEMO';
+  document.getElementById('sessionPill').textContent  = SESSION;
+  document.getElementById('sessionPill2').textContent = SESSION;
+
+  // ── Screen navigation ─────────────────────────────────────────────
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // ── Open camera / roll ────────────────────────────────────────────
+  function openCamera() { document.getElementById('inputCamera').click(); }
+  function openRoll()   { document.getElementById('inputRoll').click();   }
+
+  function goBack() {
+    // Clear inputs so re-selecting the same file triggers onchange
+    document.getElementById('inputCamera').value = '';
+    document.getElementById('inputRoll').value   = '';
+    showScreen('screenChoose');
+  }
+
+  // ── File selected → show preview ─────────────────────────────────
+  let selectedFile = null;
+
+  function handleFile(input) {
+    const file = input.files[0];
+    if (!file) return;
+    selectedFile = file;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      document.getElementById('previewImg').src = e.target.result;
+      showScreen('screenPreview');
+    };
+    reader.readAsDataURL(file);
+    input.value = ''; // reset so same file can be re-selected after retake
+  }
+
+  // ── Upload to backend ─────────────────────────────────────────────
+  async function uploadPhoto() {
+    if (!selectedFile) return;
+    showScreen('screenUploading');
+
+    // Animate progress bar
+    const fill = document.getElementById('progressFill');
+    let pct = 0;
+    const ticker = setInterval(() => {
+      pct = Math.min(pct + Math.random() * 15, 90);
+      fill.style.width = pct + '%';
+    }, 200);
+
+    try {
+      const formData = new FormData();
+      formData.append('session', SESSION);   // ties upload to the desktop session
+      formData.append('image', selectedFile);
+
+      // ── INTEGRATION NOTE ───────────────────────────────────────────
+      // Replace the URL below with your partner's actual upload endpoint.
+      // Expected behaviour:
+      //   POST /api/upload
+      //   Body: multipart/form-data  { session: string, image: File }
+      //   Success response: { ok: true }
+      //   Error response:   { ok: false, message: string }  (or any non-2xx status)
+      //
+      // The backend should:
+      //   1. Store the image in the database (or object storage like S3)
+      //   2. Associate it with the session ID so the desktop page knows it's done
+      //   3. Return { ok: true } on success
+      // ──────────────────────────────────────────────────────────────
+      const res = await fetch('http://172.31.38.20:8000/giftcards/scan', { method: 'POST', body: formData });
+      const data = await res.json();
+
+      clearInterval(ticker);
+
+      if (!res.ok || !data.ok) {
+        throw new Error(data.message || 'Server error');
+      }
+
+      fill.style.width = '100%';
+      await new Promise(r => setTimeout(r, 300)); // brief pause so bar completes
+      showScreen('screenSuccess');
+
+    } catch (err) {
+      clearInterval(ticker);
+      document.getElementById('errorMsg').textContent =
+        err.message && err.message !== 'Failed to fetch'
+          ? err.message
+          : 'Could not reach the server. Check your connection and try again.';
+      showScreen('screenError');
+    }
+  }
+</script>
+</body>
+</html>

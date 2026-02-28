@@ -4,6 +4,7 @@ from sqlmodel import select
 from datetime import datetime, timezone, timedelta
 from api.models import GiftCard, GiftCardCreate, GiftCardUpdate, GiftCardPublic, GiftCardRead, Transaction
 from api.dependencies import SessionDep, CurrentUser
+from fastapi import UploadFile, File, Depends
 
 router = APIRouter(prefix="/giftcards", tags=["giftcards"])
 
@@ -13,6 +14,33 @@ def create_giftcard(giftcard: GiftCardCreate, session: SessionDep, current_user:
         **giftcard.model_dump(),
         user_id=current_user,
         balance=giftcard.original_balance,
+    )
+    session.add(db_giftcard)
+    session.commit()
+    session.refresh(db_giftcard)
+    return db_giftcard
+
+@router.post("/scan", response_model=GiftCardPublic)
+async def scan_giftcard(file: UploadFile, session: SessionDep, current_user: CurrentUser):
+    # Read the raw image bytes from the upload
+    image_bytes = await file.read()
+
+    # ── PARSER PLACEHOLDER ─────────────────────────────────────────
+    # When your teammate finishes the parser, replace these two lines:
+    #
+    #   from utils.parser import parse_giftcard_image
+    #   parsed = parse_giftcard_image(image_bytes)
+    #
+    # parsed should return a dict like:
+    #   { "brand": "Nike", "card_number": "1234", "original_balance": 50.00,
+    #     "expiration_date": "2025-12-31", "category": "clothing" }
+    # ──────────────────────────────────────────────────────────────
+    raise HTTPException(status_code=503, detail="Parser not ready yet")
+
+    db_giftcard = GiftCard(
+        **parsed,
+        user_id=current_user,
+        balance=parsed["original_balance"],
     )
     session.add(db_giftcard)
     session.commit()
