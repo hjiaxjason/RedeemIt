@@ -160,12 +160,14 @@ def log_transaction(giftcard_id: int, transaction: TransactionCreate, session: S
     session.refresh(db_transaction)
     return db_transaction
 
-@app.get("/giftcards/{giftcard_id}/transaction", resopnse_model = list[TransactionRead])
+@app.get("/giftcards/{giftcard_id}/transaction", response_model = list[TransactionRead])
 def get_transactions(giftcard_id: int, session: SessionDep):
     transactions = session.exec(
         select(Transaction).where(Transaction.gift_card_id == giftcard_id)
     )
     return transactions
+
+# Sorting
 
 @app.get("/giftcards/expiring/soon", response_model=list[GiftCardPublic])
 def get_expiring_cards(session: SessionDep, days: int = 7):
