@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Query
 from typing import Annotated
 from sqlmodel import select
 from datetime import datetime, timezone, timedelta
-from api.models import GiftCard, GiftCardCreate, GiftCardUpdate, GiftCardPublic, GiftCardRead
+from api.models import GiftCard, GiftCardCreate, GiftCardUpdate, GiftCardPublic, GiftCardRead, Transaction
 from api.dependencies import SessionDep, CurrentUser
 
 router = APIRouter(prefix="/giftcards", tags=["giftcards"])
@@ -108,6 +108,11 @@ def delete_giftcard(giftcard_id: int, session: SessionDep, current_user: Current
     giftcard = session.get(GiftCard, giftcard_id)
     if not giftcard or giftcard.user_id != current_user:
         raise HTTPException(status_code=404, detail="Giftcard not found")
+    # Delete associated transactions first
+    transactions = session.exec(select(Transaction).where(Transaction.gift_card_id == giftcard_id)).all()
+    for txn in transactions:
+        session.delete(txn)
+    session.flush()  # Flush transaction deletions before deleting giftcard
     session.delete(giftcard)
     session.commit()
     return {"ok": True}
