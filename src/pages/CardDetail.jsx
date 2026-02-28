@@ -16,12 +16,12 @@ const fakeCards = [
 ]
 
 const BRAND_COLORS = {
-  starbucks: '#00704A',
-  amazon: '#FF9900',
-  hollister: '#1B3A6B',
-  target: '#CC0000',
-  apple: '#1d1d1f',
-  default: '#FF6B6B',
+  starbucks: 'linear-gradient(135deg, #1a3a2a 0%, #0d2018 100%)',
+  amazon: 'linear-gradient(135deg, #2a1f0a 0%, #1a1205 100%)',
+  hollister: 'linear-gradient(135deg, #0a1628 0%, #050e1a 100%)',
+  target: 'linear-gradient(135deg, #2a0a0a 0%, #1a0505 100%)',
+  apple: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)',
+  default: 'linear-gradient(135deg, #1a1a3a 0%, #0d0d2b 100%)',
 }
 
 function getBrandColor(name) {
@@ -36,7 +36,7 @@ export default function CardDetail() {
   const [showNumber, setShowNumber] = useState(false)
   const [copied, setCopied] = useState(null)
   const [amount, setAmount] = useState('')
-  const [entered, setEntered] = useState(false)
+  const [logged, setLogged] = useState(false)
 
   if (!card) return <div className="detail-error">Card not found</div>
 
@@ -51,21 +51,19 @@ export default function CardDetail() {
 
   function handleSpend() {
     if (!amount) return
-    setEntered(true)
-    setTimeout(() => setEntered(false), 2000)
+    setLogged(true)
+    setTimeout(() => setLogged(false), 2000)
     setAmount('')
   }
 
   return (
     <div className="detail-page">
-
-      {/* hero card at top */}
       <div className="detail-hero" style={{ background: color }}>
         <button className="back-btn" onClick={() => navigate('/')}>← Back</button>
         <div className="detail-hero-content">
           <div className="detail-hero-top">
             <span className="detail-retailer">{card.retailer_name}</span>
-            <span className="detail-chip">💳</span>
+            <span className="detail-chip">◈</span>
           </div>
           <div className="detail-hero-balance">${parseFloat(card.balance).toFixed(2)}</div>
           <div className="detail-hero-sub">remaining of ${parseFloat(card.original_balance).toFixed(2)}</div>
@@ -79,9 +77,7 @@ export default function CardDetail() {
         </div>
       </div>
 
-      {/* card info */}
       <div className="detail-body">
-
         <div className="detail-section">
           <h3 className="section-title">Card Details</h3>
 
@@ -98,7 +94,7 @@ export default function CardDetail() {
                   {showNumber ? 'Hide' : 'Show'}
                 </button>
                 <button className="field-btn" onClick={() => copy(card.card_number, 'number')}>
-                  {copied === 'number' ? '✓ Copied!' : 'Copy'}
+                  {copied === 'number' ? '✓ Copied' : 'Copy'}
                 </button>
               </div>
             </div>
@@ -107,22 +103,24 @@ export default function CardDetail() {
           <div className="detail-field">
             <span className="field-label">PIN</span>
             <div className="field-row">
-              <span className="field-value">
-                {showPin ? card.pin : '••••'}
-              </span>
+              <span className="field-value">{showPin ? card.pin : '••••'}</span>
               <div className="field-btns">
                 <button className="field-btn" onClick={() => setShowPin(s => !s)}>
                   {showPin ? 'Hide' : 'Show'}
                 </button>
                 <button className="field-btn" onClick={() => copy(card.pin, 'pin')}>
-                  {copied === 'pin' ? '✓ Copied!' : 'Copy'}
+                  {copied === 'pin' ? '✓ Copied' : 'Copy'}
                 </button>
               </div>
             </div>
           </div>
+
+          <div className="detail-field">
+            <span className="field-label">Category</span>
+            <span className="field-value">{card.category}</span>
+          </div>
         </div>
 
-        {/* log a spend */}
         <div className="detail-section">
           <h3 className="section-title">Log a Spend</h3>
           <div className="spend-row">
@@ -133,13 +131,12 @@ export default function CardDetail() {
               value={amount}
               onChange={e => setAmount(e.target.value)}
             />
-            <button className="spend-btn" style={{ background: color }} onClick={handleSpend}>
-              {entered ? '✓ Logged!' : 'Log Spend'}
+            <button className="spend-btn" onClick={handleSpend}>
+              {logged ? '✓ Logged' : 'Log Spend'}
             </button>
           </div>
         </div>
 
-        {/* transaction history */}
         <div className="detail-section">
           <h3 className="section-title">Transaction History</h3>
           {card.transactions.length === 0 ? (
@@ -158,7 +155,6 @@ export default function CardDetail() {
             </div>
           )}
         </div>
-
       </div>
     </div>
   )

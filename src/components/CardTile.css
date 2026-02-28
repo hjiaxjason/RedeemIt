@@ -1,50 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 .card-tile {
   width: 300px;
-  height: 185px;
-  border-radius: 24px;
+  height: 180px;
+  border-radius: 4px;
   padding: 1.4rem;
-  background: var(--bg);
-  color: var(--text);
+  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.12);
   transition: box-shadow 0.3s, transform 0.3s;
   user-select: none;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
 }
 
+/* metallic top sheen */
 .card-tile::before {
   content: '';
   position: absolute;
-  top: -40px;
-  right: -40px;
-  width: 160px;
-  height: 160px;
-  background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%);
-  border-radius: 50%;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
   pointer-events: none;
 }
 
+/* metallic bottom shadow */
 .card-tile::after {
   content: '';
   position: absolute;
-  bottom: -30px;
-  right: -20px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: var(--accent);
-  opacity: 0.2;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background: linear-gradient(to top, rgba(0,0,0,0.35), transparent);
   pointer-events: none;
 }
 
 .card-active:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
   cursor: pointer;
 }
 
@@ -53,23 +51,24 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 10px 40px rgba(255, 107, 107, 0.2); }
-  50% { box-shadow: 0 10px 40px rgba(255, 107, 107, 0.5); }
+  0%, 100% { box-shadow: 0 10px 40px rgba(134,134,172,0.15); }
+  50% { box-shadow: 0 10px 40px rgba(134,134,172,0.45); }
 }
 
 .expiry-badge {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(255,255,255,0.25);
-  color: var(--text);
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
+  top: 0.8rem;
+  right: 0.8rem;
+  background: rgba(0,0,0,0.5);
+  color: rgba(255,255,255,0.7);
+  font-size: 0.58rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
   z-index: 2;
-  backdrop-filter: blur(4px);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
 .card-top {
@@ -80,60 +79,59 @@
 }
 
 .card-retailer {
-  font-family: 'Newsreader', serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .card-chip {
-  font-size: 1.3rem;
-  opacity: 0.7;
+  font-size: 1rem;
+  opacity: 0.4;
 }
 
-.card-middle {
-  z-index: 1;
-}
+.card-middle { z-index: 1; }
 
 .card-balance {
-  font-family: 'Newsreader', serif;
-  font-size: 2.2rem;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 500;
   display: block;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .card-balance-label {
-  font-size: 0.72rem;
-  opacity: 0.6;
+  font-size: 0.58rem;
+  opacity: 0.4;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.18em;
+  font-family: 'Inter', sans-serif;
 }
 
-.card-bottom {
-  z-index: 1;
-}
+.card-bottom { z-index: 1; }
 
 .card-progress-bar {
-  height: 4px;
-  background: rgba(255,255,255,0.25);
-  border-radius: 2px;
+  height: 1px;
+  background: rgba(255,255,255,0.12);
   overflow: hidden;
   margin-bottom: 0.5rem;
 }
 
 .card-progress-fill {
   height: 100%;
-  background: var(--accent);
-  border-radius: 2px;
+  background: rgba(255,255,255,0.45);
   transition: width 0.5s ease;
-  min-width: 4px;
+  min-width: 2px;
 }
 
 .card-meta {
   display: flex;
   justify-content: space-between;
-  font-size: 0.7rem;
-  opacity: 0.6;
+  font-size: 0.6rem;
+  opacity: 0.35;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
 }

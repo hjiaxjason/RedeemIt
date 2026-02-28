@@ -125,8 +125,7 @@ export default function Dashboard() {
 
       <div className="dashboard-header">
         <div className="logo">RedeemIt</div>
-        <button className="add-btn">+ Add Card</button>
-      </div>
+        <button className="add-btn" onClick={() => navigate('/add')}>+ Add Card</button>      </div>
 
       <div className="total-section">
         <p className="total-label">Total Balance</p>

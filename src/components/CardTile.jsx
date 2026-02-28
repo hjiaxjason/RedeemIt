@@ -2,14 +2,14 @@ import './CardTile.css'
 import { useNavigate } from 'react-router-dom'
 
 const BRAND_COLORS = {
-  starbucks: { bg: '#00704A', text: '#fff', accent: '#CBA258' },
-  amazon: { bg: '#FF9900', text: '#fff', accent: '#232F3E' },
-  hollister: { bg: '#1B3A6B', text: '#fff', accent: '#C4A35A' },
-  target: { bg: '#CC0000', text: '#fff', accent: '#fff' },
-  apple: { bg: '#1d1d1f', text: '#fff', accent: '#0071e3' },
-  nike: { bg: '#111', text: '#fff', accent: '#fff' },
-  sephora: { bg: '#E2003B', text: '#fff', accent: '#fff' },
-  default: { bg: '#FF6B6B', text: '#fff', accent: '#F4C430' },
+  starbucks: { bg: 'linear-gradient(135deg, #1a3a2a 0%, #0d2018 100%)', text: '#fff', accent: '#4a9a6a' },
+  amazon: { bg: 'linear-gradient(135deg, #2a1f0a 0%, #1a1205 100%)', text: '#fff', accent: '#c8860a' },
+  hollister: { bg: 'linear-gradient(135deg, #0a1628 0%, #050e1a 100%)', text: '#fff', accent: '#2a4a7a' },
+  target: { bg: 'linear-gradient(135deg, #2a0a0a 0%, #1a0505 100%)', text: '#fff', accent: '#aa2020' },
+  apple: { bg: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)', text: '#fff', accent: '#444' },
+  nike: { bg: 'linear-gradient(135deg, #111 0%, #000 100%)', text: '#fff', accent: '#333' },
+  sephora: { bg: 'linear-gradient(135deg, #2a0a1a 0%, #1a0510 100%)', text: '#fff', accent: '#aa1a5a' },
+  default: { bg: 'linear-gradient(135deg, #1a1a3a 0%, #0d0d2b 100%)', text: '#fff', accent: '#505081' },
 }
 
 function getBrandColors(name) {
@@ -32,14 +32,14 @@ export default function CardTile({ card, isActive, onExpand }) {
   return (
     <div
       className={`card-tile ${isActive ? 'card-active' : ''} ${expiring ? 'card-expiring' : ''}`}
-      style={{ '--bg': colors.bg, '--text': colors.text, '--accent': colors.accent }}
-      onClick={() => isActive && onExpand && onExpand(card, colors.bg)}
+      style={{ background: colors.bg, '--text': colors.text, '--accent': colors.accent }}
+      onClick={() => isActive && onExpand && onExpand(card)}
     >
       {expiring && <div className="expiry-badge">⚠ Expiring Soon</div>}
 
       <div className="card-top">
         <span className="card-retailer">{card.retailer_name}</span>
-        <span className="card-chip">💳</span>
+        <span className="card-chip">◈</span>
       </div>
 
       <div className="card-middle">
