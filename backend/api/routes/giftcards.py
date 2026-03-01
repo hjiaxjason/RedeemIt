@@ -13,6 +13,7 @@ from datetime import datetime, timezone, timedelta
 from api.models import GiftCard, GiftCardCreate, GiftCardUpdate, GiftCardPublic, GiftCardRead, Transaction, GiftCardParseResult
 from api.dependencies import SessionDep, CurrentUser
 from imageparsing.card_reader import GiftCardReader
+from imageparsing.groq_parser import parse_gift_card_image as groq_parse
 
 router = APIRouter(prefix="/giftcards", tags=["giftcards"])
 
@@ -26,7 +27,7 @@ async def upload_giftcard_image(
     current_user: str = None,  # Optional auth - can be used without login for parsing
 ):
     """
-    Upload a gift card image and extract card information using OCR.
+    Upload a gift card image and extract card information using Groq Llama vision model.
     
     Returns extracted data for user to review/edit before saving.
     Does NOT save to database - use POST /giftcards/ with the returned data.
@@ -45,8 +46,8 @@ async def upload_giftcard_image(
         raise HTTPException(status_code=400, detail="File too large (max 10MB)")
     
     try:
-        # Extract card info using OCR
-        card_info = card_reader.read_image_bytes(image_bytes)
+        # Extract card info using Groq
+        card_info = groq_parse(image_bytes)
         
         # Convert to response model
         return GiftCardParseResult(
@@ -59,7 +60,7 @@ async def upload_giftcard_image(
             raw_text=card_info.raw_text,
         )
     except Exception as e:
-        raise HTTPException(status_code=422, detail=f"Failed to process image: {str(e)}")
+        raise HTTPException(status_code=422, detail=f"Failed to process image with Groq: {str(e)}")
 
 
 @router.post("/parse-image", response_model=GiftCardParseResult)
@@ -68,12 +69,54 @@ async def parse_giftcard_image(
     current_user: str = None,  # Optional auth - can be used without login for parsing
 ):
     """
-    Alias for /upload - Parse a gift card image and extract card information.
+    Alias for /upload - Parse a gift card image and extract card information using Groq Llama vision model.
     
     Returns extracted data for user to review/edit before saving.
     Does NOT save to database - use POST /giftcards/ with the returned data.
     """
     return await upload_giftcard_image(file, current_user)
+
+
+@router.post("/parse-groq", response_model=GiftCardParseResult)
+async def parse_giftcard_with_groq(
+    file: UploadFile = File(...),
+    current_user: str = None,  # Optional auth - can be used without login for parsing
+):
+    """
+    Parse a gift card image using Groq's Llama vision model.
+    
+    Returns extracted data for user to review/edit before saving.
+    Does NOT save to database - use POST /giftcards/ with the returned data.
+    """
+    # Validate file type
+    if not file.content_type or not file.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="File must be an image")
+    
+    # Read image bytes
+    image_bytes = await file.read()
+    
+    if len(image_bytes) == 0:
+        raise HTTPException(status_code=400, detail="Empty file uploaded")
+    
+    if len(image_bytes) > 10 * 1024 * 1024:  # 10MB limit
+        raise HTTPException(status_code=400, detail="File too large (max 10MB)")
+    
+    try:
+        # Extract card info using Groq
+        card_info = groq_parse(image_bytes)
+        
+        # Convert to response model
+        return GiftCardParseResult(
+            brand=card_info.brand,
+            card_number=card_info.card_number,
+            pin=card_info.pin,
+            balance=card_info.balance,
+            expiration_date=card_info.expiration_date.isoformat() if card_info.expiration_date else None,
+            confidence=card_info.confidence,
+            raw_text=card_info.raw_text,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f"Failed to process image with Groq: {str(e)}")
 
 
 @router.post("/", response_model=GiftCardPublic)
