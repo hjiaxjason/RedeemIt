@@ -2,13 +2,13 @@
 
 /* ═══════════════════════════════════════════════════════════
    REDEEMIT - GLOBAL THEME
-   Base Color: #1e3a5f (Navy Blue)
+   Base Color: #003087 (Navy Blue)
    Primary Font: League Spartan
    ═══════════════════════════════════════════════════════════ */
 
 :root {
   /* Primary Colors */
-  --primary: #1e3a5f;
+  --primary: #003087;
   --primary-dark: #152d4a;
   --primary-light: #2A2D32;
   

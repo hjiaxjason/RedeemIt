@@ -7,7 +7,7 @@
 }
 
 .addcard-header {
-  background: var(--primary, #1e3a5f);
+  background: var(--primary, #003087);
   padding: 2rem 2rem 2.5rem;
   color: white;
   position: relative;
@@ -112,7 +112,7 @@
 }
 
 .upload-option:hover {
-  border-color: var(--primary, #1e3a5f);
+  border-color: var(--primary, #003087);
   background: rgba(0, 0, 128, 0.05);
 }
 
@@ -166,7 +166,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--primary, #1e3a5f);
+  background: var(--primary, #003087);
   animation: dotPulse 1.2s ease-in-out infinite;
 }
 
@@ -197,8 +197,8 @@
 }
 
 .qr-cancel:hover { 
-  border-color: var(--primary, #1e3a5f); 
-  color: var(--primary, #1e3a5f); 
+  border-color: var(--primary, #003087); 
+  color: var(--primary, #003087); 
 }
 
 /* image preview */
@@ -226,7 +226,7 @@
 }
 
 .upload-source-badge.device {
-  background: var(--primary, #1e3a5f);
+  background: var(--primary, #003087);
 }
 
 .upload-source-badge.phone {
@@ -298,7 +298,7 @@
   position: absolute;
   bottom: 0.8rem;
   right: 0.8rem;
-  background: var(--primary, #1e3a5f);
+  background: var(--primary, #003087);
   border: 1px solid var(--primary-light, #2A2D32);
   color: white;
   padding: 0.3rem 0.8rem;
@@ -344,7 +344,7 @@
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: var(--primary, #1e3a5f);
+  border-color: var(--primary, #003087);
   background: var(--surface, white);
 }
 
@@ -360,7 +360,7 @@
 
 .submit-btn {
   width: 100%;
-  background: var(--primary, #1e3a5f);
+  background: var(--primary, #003087);
   color: #fff;
   border: none;
   padding: 1rem;
@@ -374,7 +374,7 @@
 }
 
 .submit-btn:hover {
-  background: var(--primary-dark, #1e3a5f);
+  background: var(--primary-dark, #003087);
   transform: scale(1.01);
   box-shadow: 0 6px 20px rgba(0, 0, 128, 0.35);
 }
