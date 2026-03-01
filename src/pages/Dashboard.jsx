@@ -25,6 +25,12 @@ function getBrandColor(name) {
   return BRAND_COLORS[name?.toLowerCase().trim()] || BRAND_COLORS.default
 }
 
+function formatDate(dateStr) {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
 export default function Dashboard() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [cards, setCards] = useState([])
@@ -146,7 +152,7 @@ export default function Dashboard() {
             <div className="fly-card-front" style={{ background: flyCard.color }}>
               <div className="fly-card-retailer">{flyCard.brand}</div>
               <div className="fly-card-balance">${parseFloat(flyCard.balance).toFixed(2)}</div>
-              <div className="fly-card-exp">Exp: {flyCard.expiration_date}</div>
+              <div className="fly-card-exp">Exp: {formatDate(flyCard.expiration_date)}</div>
             </div>
             <div className="fly-card-back" style={{ background: flyCard.color }} />
           </div>

@@ -16,6 +16,12 @@ function getBrandColor(name) {
   return BRAND_COLORS[name?.toLowerCase().trim()] || BRAND_COLORS.default
 }
 
+function formatDate(dateStr) {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
 export default function CardDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -171,7 +177,7 @@ export default function CardDetail() {
           </div>
           <div className="detail-hero-bottom">
             <span className="detail-category">{card.category}</span>
-            <span>Expires {card.expiration_date}</span>
+            <span>Expires {formatDate(card.expiration_date)}</span>
           </div>
         </div>
       </div>
