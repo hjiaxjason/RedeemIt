@@ -153,3 +153,35 @@ async function getCard(id) {
 
   return data;
 }
+
+function getBrandLogo(brand) {
+  const domains = {
+    "Amazon": "amazon.com",
+    "Starbucks": "starbucks.com",
+    "Target": "target.com",
+    "Walmart": "walmart.com",
+    "Nike": "nike.com",
+    "Apple": "apple.com",
+    "Best Buy": "bestbuy.com",
+    "Google Play": "play.google.com",
+    "Netflix": "netflix.com",
+    "Spotify": "spotify.com",
+    "Sephora": "sephora.com",
+    "Ulta": "ulta.com",
+    "Gap": "gap.com",
+    "Old Navy": "oldnavy.com",
+    "Hollister": "hollisterco.com",
+    "Home Depot": "homedepot.com",
+    "Chipotle": "chipotle.com",
+    "DoorDash": "doordash.com",
+    "Uber Eats": "ubereats.com",
+    "PlayStation": "playstation.com",
+    "Xbox": "xbox.com",
+    "Steam": "steampowered.com",
+    "Roblox": "roblox.com",
+    "Adidas": "adidas.com",
+    "Zara": "zara.com",
+  }
+  const domain = domains[brand] || `${brand.toLowerCase().replace(/\s+/g, '')}.com`
+  return `https://logo.clearbit.com/${domain}`
+}

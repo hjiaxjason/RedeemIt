@@ -1,4 +1,4 @@
-/* global getToken, clearToken, login, signup, getCards, getCard */
+/* global getToken, clearToken, login, signup, getCards, getCard, getBrandLogo */
 
 // DOM Elements
 let cardsList;
@@ -178,7 +178,7 @@ function renderCards(cards) {
     cardEl.className = 'card';
     cardEl.style.cursor = 'pointer';
 
-    const logoUrl = card.logo_url || `https://logo.clearbit.com/${card.brand.toLowerCase().replace(/\s+/g, '')}.com`;
+    const logoUrl = card.logo_url || getBrandLogo(card.brand);
     const balance = card.balance != null ? card.balance.toFixed(2) : '0.00';
 
     cardEl.innerHTML = `
@@ -208,7 +208,7 @@ async function showCardDetail(cardId) {
     pinRevealed = false;
 
     // Populate detail view
-    const logoUrl = cardDetails.logo_url || `https://logo.clearbit.com/${cardDetails.brand.toLowerCase().replace(/\s+/g, '')}.com`;
+    const logoUrl = cardDetails.logo_url || getBrandLogo(cardDetails.brand);
     document.getElementById('detail-logo').src = logoUrl;
     document.getElementById('detail-logo').style.display = '';
     document.getElementById('detail-brand').textContent = cardDetails.brand;
