@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap');
+
+/* ═══════════════════════════════════════════════════════════
+   REDEEMIT - GLOBAL THEME
+   Base Color: #547792 (Steel Blue)
+   Primary Font: League Spartan
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Primary Colors */
+  --primary: #547792;
+  --primary-dark: #3d5a6e;
+  --primary-light: #7a9bb5;
+  
+  /* Background & Surface */
+  --background: #f8fafb;
+  --surface: #ffffff;
+  
+  /* Text Colors */
+  --text-primary: #1a2a36;
+  --text-secondary: #5a6d7a;
+  --text-muted: #8a9ba8;
+  
+  /* Border */
+  --border: #d4dfe6;
+  --border-light: #e8eff4;
+  
+  /* Semantic Colors */
+  --success: #2d9e5f;
+  --success-light: #e8f5ee;
+  --error: #d64545;
+  --error-light: #fdeaea;
+  --warning: #e8a430;
+  --warning-light: #fef6e6;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(84, 119, 146, 0.08);
+  --shadow-md: 0 4px 20px rgba(84, 119, 146, 0.12);
+  --shadow-lg: 0 8px 40px rgba(84, 119, 146, 0.16);
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'League Spartan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--background);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* Form Elements */
+input, select, textarea {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 1rem;
+}
+
+button {
+  font-family: 'League Spartan', sans-serif;
+  cursor: pointer;
+}
+
+/* Focus States */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--primary);
+  color: white;
+}

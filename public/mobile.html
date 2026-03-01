@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>CardVault – Upload Card</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<title>RedeemIt – Upload Card</title>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after {
     margin: 0; padding: 0; box-sizing: border-box;
@@ -12,25 +12,28 @@
   }
 
   :root {
-    --bg: #f7f4ef;
-    --ink: #1a1814;
-    --muted: #9e9b94;
-    --accent: #e8470a;
-    --surface: #efecea;
-    --border: #dedad3;
-    --green: #2d9e5f;
+    --primary: #547792;
+    --primary-dark: #3d5a6e;
+    --primary-light: #7a9bb5;
+    --background: #f8fafb;
+    --surface: #ffffff;
+    --text-primary: #1a2a36;
+    --text-secondary: #5a6d7a;
+    --text-muted: #8a9ba8;
+    --border: #d4dfe6;
+    --success: #2d9e5f;
+    --error: #d64545;
   }
 
   html, body {
     height: 100%;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Karla', sans-serif;
+    background: var(--background);
+    color: var(--text-primary);
+    font-family: 'League Spartan', sans-serif;
     overflow: hidden;
   }
 
   /* ── SCREEN SYSTEM ── */
-  /* All screens stack on top of each other; only .active is visible */
   .screen {
     position: fixed;
     inset: 0;
@@ -60,18 +63,19 @@
   }
 
   .logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.3rem;
-    letter-spacing: 0.08em;
-    color: var(--accent);
+    font-family: 'League Spartan', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--primary);
   }
 
   .session-pill {
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--text-muted);
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 20px;
@@ -79,7 +83,7 @@
   }
 
   /* ── SCREEN 1: CHOOSE METHOD ── */
-  #screenChoose { background: var(--bg); }
+  #screenChoose { background: var(--background); }
 
   .choose-body {
     flex: 1;
@@ -90,21 +94,22 @@
   }
 
   .choose-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.2rem;
-    line-height: 0.95;
-    letter-spacing: 0.01em;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
 
   .choose-title em {
     display: block;
     font-style: normal;
-    color: var(--accent);
+    color: var(--primary);
   }
 
   .choose-sub {
-    font-size: 0.82rem;
-    color: var(--muted);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
     line-height: 1.6;
     max-width: 280px;
   }
@@ -119,24 +124,32 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: white;
-    border: 1.5px solid var(--border);
+    background: var(--surface);
+    border: 2px solid var(--border);
     border-radius: 14px;
     padding: 1.1rem 1.25rem;
     cursor: pointer;
-    transition: border-color 0.2s, transform 0.12s;
+    transition: border-color 0.2s, transform 0.12s, box-shadow 0.2s;
     text-align: left;
     width: 100%;
-    font-family: 'Karla', sans-serif;
+    font-family: 'League Spartan', sans-serif;
   }
 
-  .btn-choice:active { transform: scale(0.97); border-color: var(--accent); }
+  .btn-choice:active { 
+    transform: scale(0.98); 
+    border-color: var(--primary); 
+  }
+
+  .btn-choice:hover {
+    border-color: var(--primary-light);
+    box-shadow: 0 2px 12px rgba(84, 119, 146, 0.12);
+  }
 
   .btn-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background: var(--surface);
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(84, 119, 146, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -146,19 +159,19 @@
 
   .btn-choice-text strong {
     display: block;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--ink);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
     margin-bottom: 2px;
   }
 
   .btn-choice-text span {
-    font-size: 0.72rem;
-    color: var(--muted);
+    font-size: 0.75rem;
+    color: var(--text-muted);
   }
 
   /* ── SCREEN 2: PREVIEW + CONFIRM ── */
-  #screenPreview { background: var(--bg); }
+  #screenPreview { background: var(--background); }
 
   .preview-body {
     flex: 1;
@@ -168,16 +181,16 @@
   }
 
   .preview-label {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--text-muted);
   }
 
   .preview-img-wrap {
     flex: 1;
-    background: #1a1814;
+    background: var(--text-primary);
     border-radius: 16px;
     overflow: hidden;
     min-height: 220px;
@@ -203,37 +216,39 @@
     flex: 1;
     padding: 0.9rem;
     background: var(--surface);
-    border: 1.5px solid var(--border);
+    border: 2px solid var(--border);
     border-radius: 12px;
-    font-family: 'Karla', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--ink);
+    font-family: 'League Spartan', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
     cursor: pointer;
     transition: border-color 0.2s, transform 0.12s;
   }
 
   .btn-retake:active { transform: scale(0.97); }
+  .btn-retake:hover { border-color: var(--primary); }
 
   .btn-use {
     flex: 2;
     padding: 0.9rem;
-    background: var(--accent);
+    background: var(--primary);
     border: none;
     border-radius: 12px;
-    font-family: 'Karla', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
     color: white;
     cursor: pointer;
-    transition: opacity 0.2s, transform 0.12s;
+    transition: background 0.2s, transform 0.12s;
   }
 
-  .btn-use:active { transform: scale(0.97); opacity: 0.9; }
+  .btn-use:active { transform: scale(0.97); }
+  .btn-use:hover { background: var(--primary-dark); }
 
   /* ── SCREEN 3: UPLOADING ── */
   #screenUploading {
-    background: var(--bg);
+    background: var(--background);
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -251,16 +266,20 @@
   }
 
   .upload-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.2rem;
-    letter-spacing: 0.03em;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
-  .upload-sub { font-size: 0.8rem; color: var(--muted); }
+  .upload-sub { 
+    font-size: 0.9rem; 
+    color: var(--text-muted); 
+  }
 
   .progress-bar {
     width: 200px;
-    height: 5px;
+    height: 6px;
     background: var(--border);
     border-radius: 3px;
     overflow: hidden;
@@ -269,14 +288,14 @@
   .progress-fill {
     height: 100%;
     width: 0%;
-    background: var(--accent);
+    background: var(--primary);
     border-radius: 3px;
     transition: width 0.3s ease;
   }
 
   /* ── SCREEN 4: SUCCESS ── */
   #screenSuccess {
-    background: var(--bg);
+    background: var(--background);
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -287,11 +306,12 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: var(--green);
+    background: var(--success);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2.2rem;
+    color: white;
     animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
@@ -301,21 +321,27 @@
   }
 
   .success-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3rem;
-    letter-spacing: 0.02em;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
     line-height: 1;
   }
 
-  .success-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.7; max-width: 260px; }
+  .success-sub { 
+    font-size: 0.9rem; 
+    color: var(--text-secondary); 
+    line-height: 1.7; 
+    max-width: 260px; 
+  }
 
   .close-pill {
     margin-top: 0.5rem;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--text-muted);
     border: 1px solid var(--border);
     border-radius: 30px;
     padding: 0.5rem 1.2rem;
@@ -323,7 +349,7 @@
 
   /* ── SCREEN 5: ERROR ── */
   #screenError {
-    background: var(--bg);
+    background: var(--background);
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -335,25 +361,34 @@
   }
 
   .error-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.5rem;
-    letter-spacing: 0.02em;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
-  .error-msg { font-size: 0.8rem; color: var(--muted); line-height: 1.6; max-width: 260px; }
+  .error-msg { 
+    font-size: 0.9rem; 
+    color: var(--text-secondary); 
+    line-height: 1.6; 
+    max-width: 260px; 
+  }
 
   .btn-retry {
     margin-top: 0.5rem;
-    padding: 0.85rem 2rem;
-    background: var(--accent);
+    padding: 0.9rem 2rem;
+    background: var(--primary);
     border: none;
     border-radius: 12px;
-    font-family: 'Karla', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
     color: white;
     cursor: pointer;
+    transition: background 0.2s;
   }
+
+  .btn-retry:hover { background: var(--primary-dark); }
 
   /* Hidden inputs */
   input[type="file"] { display: none; }
@@ -364,7 +399,7 @@
 <!-- SCREEN 1: Choose how to add photo -->
 <div class="screen active" id="screenChoose">
   <div class="nav">
-    <div class="logo">CardVault</div>
+    <div class="logo">RedeemIt</div>
     <div class="session-pill" id="sessionPill"></div>
   </div>
   <div class="choose-body">
@@ -394,7 +429,7 @@
 <!-- SCREEN 2: Preview + confirm -->
 <div class="screen" id="screenPreview">
   <div class="nav">
-    <div class="logo">CardVault</div>
+    <div class="logo">RedeemIt</div>
     <div class="session-pill" id="sessionPill2"></div>
   </div>
   <div class="preview-body">
@@ -431,3 +466,90 @@
   <div class="error-title">Upload Failed</div>
   <p class="error-msg" id="errorMsg">Something went wrong. Check your connection and try again.</p>
   <button class="btn-retry" onclick="showScreen('screenChoose')">Try Again</button>
+</div>
+
+<!-- Hidden file inputs -->
+<input type="file" id="cameraInput" accept="image/*" capture="environment">
+<input type="file" id="rollInput" accept="image/*">
+
+<script>
+  // ── Session ID ─────────────────────────────────────────────────────
+  const urlParams = new URLSearchParams(window.location.search);
+  const SESSION_ID = urlParams.get('session') || 'UNKNOWN';
+  document.getElementById('sessionPill').textContent = `Session ${SESSION_ID}`;
+  document.getElementById('sessionPill2').textContent = `Session ${SESSION_ID}`;
+
+  let selectedFile = null;
+
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function openCamera() {
+    document.getElementById('cameraInput').click();
+  }
+
+  function openRoll() {
+    document.getElementById('rollInput').click();
+  }
+
+  function handleFile(file) {
+    if (!file) return;
+    selectedFile = file;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      document.getElementById('previewImg').src = e.target.result;
+      showScreen('screenPreview');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  document.getElementById('cameraInput').addEventListener('change', (e) => handleFile(e.target.files[0]));
+  document.getElementById('rollInput').addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+  function goBack() {
+    selectedFile = null;
+    showScreen('screenChoose');
+  }
+
+  async function uploadPhoto() {
+    if (!selectedFile) return;
+    showScreen('screenUploading');
+    
+    const fill = document.getElementById('progressFill');
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 15;
+      if (progress > 90) progress = 90;
+      fill.style.width = progress + '%';
+    }, 200);
+
+    try {
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+      formData.append('session', SESSION_ID);
+
+      // Replace with your actual upload endpoint
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      clearInterval(interval);
+      fill.style.width = '100%';
+
+      if (response.ok) {
+        setTimeout(() => showScreen('screenSuccess'), 300);
+      } else {
+        throw new Error('Upload failed');
+      }
+    } catch (err) {
+      clearInterval(interval);
+      document.getElementById('errorMsg').textContent = err.message || 'Something went wrong. Check your connection and try again.';
+      showScreen('screenError');
+    }
+  }
+</script>
+</body>
+</html>
