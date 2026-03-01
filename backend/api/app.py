@@ -14,7 +14,10 @@ app = FastAPI(
 # Get CORS origins from environment or use defaults
 # Handle both JSON array format and comma-separated format
 origins_env = os.getenv("ALLOWED_ORIGINS", "")
-if origins_env.startswith("["):
+if origins_env == "*":
+    # Allow all origins
+    allowed_origins = ["*"]
+elif origins_env.startswith("["):
     # JSON array format
     try:
         allowed_origins = json.loads(origins_env)
@@ -24,15 +27,8 @@ elif origins_env:
     # Comma-separated format
     allowed_origins = [o.strip() for o in origins_env.split(",")]
 else:
-    # Default for development
-    allowed_origins = [
-        "http://localhost:3000",
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:5173",
-        "http://127.0.0.1:5174",
-    ]
+    # Default: allow all for development
+    allowed_origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
