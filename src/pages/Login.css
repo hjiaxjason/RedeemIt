@@ -1,47 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap');
 
 .auth-page {
   min-height: 100vh;
-  background: #FFF8F0;
+  background: var(--background, #f8fafb);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'League Spartan', sans-serif;
 }
 
 .auth-container {
-  background: white;
-  border-radius: 28px;
+  background: var(--surface, white);
+  border-radius: var(--radius-xl, 28px);
   padding: 3rem 2.5rem;
   max-width: 420px;
   width: 100%;
-  box-shadow: 0 4px 30px rgba(255, 107, 107, 0.08);
-  border: 1px solid #FFE5D9;
+  box-shadow: var(--shadow-md, 0 4px 30px rgba(0, 0, 128, 0.08));
+  border: 1px solid var(--border, #d4dfe6);
 }
 
 .auth-logo {
-  font-family: 'Newsreader', serif;
+  font-family: 'League Spartan', sans-serif;
   font-size: 2rem;
   font-weight: 700;
-  color: #FF6B6B;
+  color: var(--primary, #003087);
   text-align: center;
   margin-bottom: 2rem;
   letter-spacing: -0.02em;
 }
 
 .auth-title {
-  font-family: 'Newsreader', serif;
+  font-family: 'League Spartan', sans-serif;
   font-size: 1.8rem;
   font-weight: 600;
-  color: #3d2c2c;
+  color: var(--text-primary, #4F81B7);
   text-align: center;
   margin-bottom: 0.5rem;
 }
 
 .auth-subtitle {
   font-size: 0.95rem;
-  color: #c9a99a;
+  color: var(--text-muted, #4F81B7);
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -61,58 +61,59 @@
 .form-group label {
   font-size: 0.85rem;
   font-weight: 500;
-  color: #3d2c2c;
+  color: var(--text-primary, #4F81B7);
 }
 
 .form-group input {
   padding: 0.9rem 1rem;
-  border: 2px solid #FFE5D9;
-  border-radius: 12px;
+  border: 2px solid var(--border, #d4dfe6);
+  border-radius: var(--radius-md, 12px);
   font-size: 1rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'League Spartan', sans-serif;
   transition: all 0.2s;
-  background: #FFF8F0;
-  color: #3d2c2c;
+  background: var(--background, #f8fafb);
+  color: var(--text-primary, #4F81B7);
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #FF6B6B;
-  background: white;
+  border-color: var(--primary, #003087);
+  background: var(--surface, white);
 }
 
 .form-group input::placeholder {
-  color: #c9a99a;
+  color: var(--text-muted, #4F81B7);
 }
 
 .auth-error {
-  background: #FFF0F0;
-  border: 1px solid #FFD0D0;
-  color: #D32F2F;
+  background: var(--error-light, #fdeaea);
+  border: 1px solid rgba(214, 69, 69, 0.3);
+  color: var(--error, #d64545);
   padding: 0.8rem 1rem;
-  border-radius: 12px;
+  border-radius: var(--radius-md, 12px);
   font-size: 0.9rem;
   text-align: center;
 }
 
 .auth-btn {
-  background: #FF6B6B;
+  background: var(--primary, #003087);
   color: white;
   border: none;
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: var(--radius-md, 12px);
   font-size: 1rem;
   font-weight: 600;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'League Spartan', sans-serif;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 0, 128, 0.25);
   margin-top: 0.5rem;
 }
 
 .auth-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.35);
+  box-shadow: 0 6px 20px rgba(0, 0, 128, 0.35);
+  background: var(--primary-dark, #152d4a);
 }
 
 .auth-btn:disabled {
@@ -124,11 +125,11 @@
   text-align: center;
   margin-top: 1.5rem;
   font-size: 0.9rem;
-  color: #c9a99a;
+  color: var(--text-muted, #4F81B7);
 }
 
 .auth-switch a {
-  color: #FF6B6B;
+  color: var(--primary, #003087);
   text-decoration: none;
   font-weight: 600;
 }

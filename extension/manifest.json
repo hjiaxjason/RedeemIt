@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "ReedemIt",
+  "version": "1.0",
+  "description": "Autofill gift card details at checkout",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["<all_urls>", "https://redeemit.onrender.com/*"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}

@@ -9,7 +9,7 @@ const BRAND_COLORS = {
   hollister: '#1B3A6B',
   target: '#CC0000',
   apple: '#1d1d1f',
-  default: '#FF6B6B',
+  default: 'linear-gradient(135deg, #1e3a5f, #2c5282)',
 }
 
 function getBrandColor(name) {
@@ -55,7 +55,7 @@ export default function CardDetail() {
         } else {
           setCard(data)
         }
-      } catch (err) {
+      } catch {
         setError('Failed to load card')
       } finally {
         setLoading(false)
@@ -98,7 +98,7 @@ export default function CardDetail() {
         if (Array.isArray(updatedTransactions)) setTransactions(updatedTransactions)
         setAmount('')
       }
-    } catch (err) {
+    } catch {
       showToast('Failed to log spend', 'error')
     } finally {
       setSpendLoading(false)
@@ -117,7 +117,7 @@ export default function CardDetail() {
         showToast('Card deleted successfully!')
         setTimeout(() => navigate('/'), 500)
       }
-    } catch (err) {
+    } catch {
       showToast('Failed to delete card', 'error')
       setShowDeleteModal(false)
     } finally {
