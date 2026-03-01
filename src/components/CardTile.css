@@ -12,7 +12,7 @@
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(84, 119, 146, 0.12);
+  box-shadow: 0 10px 40px rgba(0, 0, 128, 0.12);
   transition: box-shadow 0.3s, transform 0.3s;
   user-select: none;
 }
@@ -44,7 +44,7 @@
 
 .card-active:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(84, 119, 146, 0.18);
+  box-shadow: 0 20px 50px rgba(0, 0, 128, 0.18);
   cursor: pointer;
 }
 

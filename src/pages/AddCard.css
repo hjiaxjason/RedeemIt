@@ -7,7 +7,7 @@
 }
 
 .addcard-header {
-  background: var(--primary, #547792);
+  background: var(--primary, #000080);
   padding: 2rem 2rem 2.5rem;
   color: white;
   position: relative;
@@ -78,7 +78,7 @@
   padding: 1.5rem;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-sm, 0 2px 8px rgba(84, 119, 146, 0.08));
+  box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 128, 0.08));
 }
 
 .section-title {
@@ -112,8 +112,8 @@
 }
 
 .upload-option:hover {
-  border-color: var(--primary, #547792);
-  background: rgba(84, 119, 146, 0.05);
+  border-color: var(--primary, #000080);
+  background: rgba(0, 0, 128, 0.05);
 }
 
 .upload-option-icon {
@@ -166,7 +166,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--primary, #547792);
+  background: var(--primary, #000080);
   animation: dotPulse 1.2s ease-in-out infinite;
 }
 
@@ -197,8 +197,8 @@
 }
 
 .qr-cancel:hover { 
-  border-color: var(--primary, #547792); 
-  color: var(--primary, #547792); 
+  border-color: var(--primary, #000080); 
+  color: var(--primary, #000080); 
 }
 
 /* image preview */
@@ -213,7 +213,7 @@
   position: absolute;
   top: 0.8rem;
   right: 0.8rem;
-  background: rgba(84, 119, 146, 0.9);
+  background: rgba(0, 0, 128, 0.9);
   border: 1px solid rgba(255,255,255,0.2);
   color: #fff;
   padding: 0.35rem 0.7rem;
@@ -226,7 +226,7 @@
 }
 
 .upload-source-badge.device {
-  background: var(--primary, #547792);
+  background: var(--primary, #000080);
 }
 
 .upload-source-badge.phone {
@@ -264,7 +264,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(84, 119, 146, 0.6);
+  background: rgba(0, 0, 128, 0.6);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -275,8 +275,8 @@
 .scan-line {
   width: 80%;
   height: 2px;
-  background: var(--primary-light, #7a9bb5);
-  box-shadow: 0 0 10px var(--primary-light, #7a9bb5), 0 0 20px var(--primary-light, #7a9bb5);
+  background: var(--primary-light, #0000AE);
+  box-shadow: 0 0 10px var(--primary-light, #0000AE), 0 0 20px var(--primary-light, #0000AE);
   animation: scanMove 1s ease-in-out infinite alternate;
 }
 
@@ -298,8 +298,8 @@
   position: absolute;
   bottom: 0.8rem;
   right: 0.8rem;
-  background: var(--primary, #547792);
-  border: 1px solid var(--primary-light, #7a9bb5);
+  background: var(--primary, #000080);
+  border: 1px solid var(--primary-light, #0000AE);
   color: white;
   padding: 0.3rem 0.8rem;
   font-size: 0.75rem;
@@ -344,7 +344,7 @@
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: var(--primary, #547792);
+  border-color: var(--primary, #000080);
   background: var(--surface, white);
 }
 
@@ -360,7 +360,7 @@
 
 .submit-btn {
   width: 100%;
-  background: var(--primary, #547792);
+  background: var(--primary, #000080);
   color: #fff;
   border: none;
   padding: 1rem;
@@ -370,13 +370,13 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 4px 15px rgba(84, 119, 146, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 0, 128, 0.25);
 }
 
 .submit-btn:hover {
   background: var(--primary-dark, #000080);
   transform: scale(1.01);
-  box-shadow: 0 6px 20px rgba(84, 119, 146, 0.35);
+  box-shadow: 0 6px 20px rgba(0, 0, 128, 0.35);
 }
 
 .submit-btn:disabled {

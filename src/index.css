@@ -2,15 +2,15 @@
 
 /* ═══════════════════════════════════════════════════════════
    REDEEMIT - GLOBAL THEME
-   Base Color: #547792 (Steel Blue)
+   Base Color: #000080 (Navy Blue)
    Primary Font: League Spartan
    ═══════════════════════════════════════════════════════════ */
 
 :root {
   /* Primary Colors */
-  --primary: #547792;
-  --primary-dark: #3d5a6e;
-  --primary-light: #7a9bb5;
+  --primary: #000080;
+  --primary-dark: #000060;
+  --primary-light: #0000AE;
   
   /* Background & Surface */
   --background: #f8fafb;
@@ -34,9 +34,9 @@
   --warning-light: #fef6e6;
   
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(84, 119, 146, 0.08);
-  --shadow-md: 0 4px 20px rgba(84, 119, 146, 0.12);
-  --shadow-lg: 0 8px 40px rgba(84, 119, 146, 0.16);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 128, 0.08);
+  --shadow-md: 0 4px 20px rgba(0, 0, 128, 0.12);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 128, 0.16);
   
   /* Border Radius */
   --radius-sm: 8px;

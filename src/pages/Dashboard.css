@@ -26,12 +26,12 @@ body {
   font-family: 'League Spartan', sans-serif;
   font-size: 2rem;
   font-weight: 700;
-  color: var(--primary, #547792);
+  color: var(--primary, #000080);
   letter-spacing: -0.02em;
 }
 
 .add-btn {
-  background: var(--primary, #547792);
+  background: var(--primary, #000080);
   color: #fff;
   border: none;
   padding: 0.7rem 1.6rem;
@@ -41,12 +41,12 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 4px 15px rgba(84, 119, 146, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 0, 128, 0.25);
 }
 
 .add-btn:hover { 
   transform: scale(1.05); 
-  box-shadow: 0 6px 20px rgba(84, 119, 146, 0.35);
+  box-shadow: 0 6px 20px rgba(0, 0, 128, 0.35);
   background: var(--primary-dark, #000080);
 }
 
@@ -56,7 +56,7 @@ body {
   background: var(--surface, white);
   border-radius: var(--radius-xl, 28px);
   padding: 2rem;
-  box-shadow: var(--shadow-md, 0 4px 30px rgba(84, 119, 146, 0.08));
+  box-shadow: var(--shadow-md, 0 4px 30px rgba(0, 0, 128, 0.08));
   border: 1px solid var(--border, #d4dfe6);
 }
 
@@ -65,7 +65,7 @@ body {
   font-size: 0.8rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--primary, #547792);
+  color: var(--primary, #000080);
   font-weight: 600;
   margin-bottom: 0.3rem;
 }
@@ -75,7 +75,7 @@ body {
   font-size: clamp(3rem, 8vw, 5rem);
   font-weight: 700;
   line-height: 1;
-  color: var(--primary, #547792);
+  color: var(--primary, #000080);
 }
 
 .card-count { 
@@ -97,7 +97,7 @@ body {
 
 .filter-btn {
   background: var(--surface, white);
-  color: var(--primary, #547792);
+  color: var(--primary, #000080);
   border: 2px solid var(--border, #d4dfe6);
   padding: 0.5rem 1.2rem;
   border-radius: var(--radius-full, 999px);
@@ -111,11 +111,11 @@ body {
   gap: 0.4rem;
 }
 
-.filter-btn:hover { border-color: var(--primary, #547792); }
+.filter-btn:hover { border-color: var(--primary, #000080); }
 .filter-btn.open { 
-  background: var(--primary, #547792); 
+  background: var(--primary, #000080); 
   color: white; 
-  border-color: var(--primary, #547792); 
+  border-color: var(--primary, #000080); 
 }
 
 .filter-dropdown {
@@ -126,7 +126,7 @@ body {
   border: 1px solid var(--border, #d4dfe6);
   border-radius: var(--radius-lg, 16px);
   padding: 1rem;
-  box-shadow: var(--shadow-lg, 0 8px 30px rgba(84, 119, 146, 0.12));
+  box-shadow: var(--shadow-lg, 0 8px 30px rgba(0, 0, 128, 0.12));
   z-index: 100;
   min-width: 200px;
 }
@@ -162,18 +162,18 @@ body {
 }
 
 .filter-option:hover { 
-  border-color: var(--primary, #547792); 
-  color: var(--primary, #547792); 
+  border-color: var(--primary, #000080); 
+  color: var(--primary, #000080); 
 }
 .filter-option.selected { 
-  background: rgba(84, 119, 146, 0.12);
-  border-color: var(--primary, #547792); 
-  color: var(--primary, #547792); 
+  background: rgba(0, 0, 128, 0.12);
+  border-color: var(--primary, #000080); 
+  color: var(--primary, #000080); 
 }
 
 .filter-confirm {
   width: 100%;
-  background: var(--primary, #547792);
+  background: var(--primary, #000080);
   color: white;
   border: none;
   border-radius: var(--radius-full, 999px);
@@ -185,7 +185,7 @@ body {
   transition: all 0.2s;
 }
 
-.filter-confirm:hover { background: var(--primary-dark, #3d5a6e); }
+.filter-confirm:hover { background: var(--primary-dark, #000060); }
 
 .sort-select {
   background: var(--surface, white);
@@ -201,7 +201,7 @@ body {
   transition: all 0.2s;
 }
 
-.sort-select:hover { border-color: var(--primary, #547792); }
+.sort-select:hover { border-color: var(--primary, #000080); }
 
 .carousel {
   display: flex;
@@ -236,7 +236,7 @@ body {
 .arrow {
   background: var(--surface, white);
   border: 2px solid var(--border, #d4dfe6);
-  color: var(--primary, #547792);
+  color: var(--primary, #000080);
   width: 46px;
   height: 46px;
   border-radius: 50%;
@@ -249,9 +249,9 @@ body {
 }
 
 .arrow:hover { 
-  background: var(--primary, #547792); 
+  background: var(--primary, #000080); 
   color: white; 
-  border-color: var(--primary, #547792); 
+  border-color: var(--primary, #000080); 
 }
 
 .dots {
@@ -271,7 +271,7 @@ body {
 }
 
 .dot-active { 
-  background: var(--primary, #547792); 
+  background: var(--primary, #000080); 
   width: 24px; 
   border-radius: 4px; 
 }
@@ -405,8 +405,8 @@ body {
 }
 
 .logout-btn:hover {
-  border-color: var(--primary, #547792);
-  color: var(--primary, #547792);
+  border-color: var(--primary, #000080);
+  color: var(--primary, #000080);
 }
 
 /* Loading State */
@@ -424,7 +424,7 @@ body {
   width: 48px;
   height: 48px;
   border: 4px solid var(--border, #d4dfe6);
-  border-top-color: var(--primary, #547792);
+  border-top-color: var(--primary, #000080);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -458,7 +458,7 @@ body {
 }
 
 .error-state button {
-  background: var(--primary, #547792);
+  background: var(--primary, #000080);
   color: white;
   border: none;
   padding: 0.6rem 1.4rem;
