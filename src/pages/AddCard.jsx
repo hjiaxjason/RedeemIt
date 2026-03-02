@@ -69,6 +69,14 @@ export default function AddCard() {
 
   async function handleSubmit() {
     setError(null)
+
+    // Validate required fields
+    if (!form.brand.trim()) return setError('Store name is required.')
+    if (!form.card_number.trim()) return setError('Card number is required.')
+    if (!form.original_balance) return setError('Balance is required.')
+    if (!form.expiration_date) return setError('Expiration date is required.')
+    if (!form.category) return setError('Please select a category.')
+
     setSaving(true)
     
     try {
